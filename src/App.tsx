@@ -1,43 +1,28 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-//
-// function App() {
-//   const [count, setCount] = useState(0)
-//
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-//
-// export default App
+// src/App.tsx
 
-export default function App() {
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { LoginPage } from "./pages/LoginPage";
+import { MainDashboardPage } from "./pages/MainDashboardPage";
+import { MyPage } from "./pages/MyPage";
+
+function App() {
     return (
-        <div className="text-3xl font-bold text-blue-500">
-            TailwindCSS Working!
-        </div>
+        <BrowserRouter>
+            <Routes>
+                {/* 로그인 페이지 */}
+                <Route path="/login" element={<LoginPage />} />
+
+                {/* 메인 대시보드 (소비 분석 + 미션 + 뉴스 + 용어 + 거래분석) */}
+                <Route path="/main" element={<MainDashboardPage />} />
+
+                {/* 마이페이지 (CSV 업로드/삭제, 계정 관리) */}
+                <Route path="/mypage" element={<MyPage />} />
+
+                {/* 기본 진입은 /login 으로 리다이렉트 */}
+                <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
+
+export default App;
